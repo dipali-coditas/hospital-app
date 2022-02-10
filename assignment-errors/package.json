@@ -1,0 +1,16 @@
+{
+  "name": "assignment-errors",
+  "version": "1.0.0",
+  "description": "",
+  "main": "jay-kosamkar.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
