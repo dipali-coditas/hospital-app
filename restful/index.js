@@ -145,26 +145,32 @@ app.get('/product', (req, res, next) => {
 // discount is min discount
 app.get('/filter-products', (req, res, next) => {
     // price and discount both are optional and may not be sent
-    const { price, discount } = req.query;
+    const { price = Infinity, discount = 0 } = req.query;
+    const filtered = products.filter(p => p.price <= price && p.discount >= discount);
 
-    if (!price && !discount) {
-        return res.send(products);
-    }
+    // ASSIGNMENT SOLUTION:
+
+    // if (!price && !discount) {
+    //     return res.send(products);
+    // }
 
     // check if price or discount is provided
     // BAD WAY
     // assignment -> create a more optimal/clean solution for filtering
-    if (price && !discount) {
-        const filtered = products.filter(p => p.price <= price);
-        return res.send(filtered);
-    }
+    // if (price && !discount) {
+    //     const filtered = products.filter(p => p.price <= price);
+    //     return res.send(filtered);
+    // }
 
-    if (discount && !price) {
-        const filtered = products.filter(p => p.discount >= discount);
-        return res.send(filtered);
-    }
+    // if (discount && !price) {
+    //     const filtered = products.filter(p => p.discount >= discount);
+    //     return res.send(filtered);
+    // }
 
-    const filtered = products.filter(p => p.discount >= discount && p.price < price);
+    // const filtered = products.filter(p => p.discount >= discount && p.price < price);
+
+    
+
     res.send(filtered);
 })
 
