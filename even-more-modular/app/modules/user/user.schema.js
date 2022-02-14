@@ -1,4 +1,7 @@
 // responsible for all the database part
+// ASSIGNMENT ->
+// implement the save, updateOne & deleteOne methods
+// send the user.schema.js file via DM on slack
 
 class UserSchema {
     users = [];
