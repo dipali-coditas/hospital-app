@@ -2,6 +2,7 @@
 // ASSIGNMENT ->
 // implement the save, updateOne & deleteOne methods
 // send the user.schema.js file via DM on slack
+// use these methods from the user.routes.js file
 
 class UserSchema {
     users = [];
@@ -12,7 +13,7 @@ class UserSchema {
     }
 
     getAll() {
-        throw { };
+        // throw { };
         return this.users;
     }
 
