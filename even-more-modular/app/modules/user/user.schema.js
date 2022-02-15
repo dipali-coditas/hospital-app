@@ -23,11 +23,11 @@ class UserSchema {
     }
 
     updateOne(user) {
-        const userRecord = this.users.find(u => u.id === user.id);
+        let recordIndex = this.users.findIndex(u => u.id === user.id);
 
-        if(!userRecord) throw { message: 'USER NOT FOUND' };
+        if(!recordIndex < 0) throw { message: 'USER NOT FOUND' };
 
-        userRecord = user;
+        this.users[recordIndex] = user;
 
         return true;
     }
