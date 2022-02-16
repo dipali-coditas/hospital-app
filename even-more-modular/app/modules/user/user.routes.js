@@ -7,7 +7,11 @@ const router = Router();
 // validate incoming data
 // handling errors
 
-router.post("/", CreateUserValidator(), (req, res, next) => {
+
+// 1. checks for the router with the matching endpoint
+// 2. checks if the method of the request is same
+
+router.post("/", CreateUserValidator, (req, res, next) => {
     try {
         const result = UserDB.save(req.body);
         res.send({ message: "USER CREATED", data: result });
