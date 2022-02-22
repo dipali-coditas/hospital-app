@@ -1,5 +1,6 @@
 import { Router } from "express";
 import jwt from "jsonwebtoken";
+import { authorize } from "../../utility/authorize.js";
 
 const { sign, verify } = jwt;
 
@@ -45,12 +46,9 @@ router.post("/login", LoginUserValidator, (req, res, next) => {
 
 router.get("/", (req, res, next) => {
     try {
-        // Authorization key in the req.headers object should contain the token
-    const token = req.headers.authorization;
-
-    const { SECRET_KEY } = process.env;
-    verify(token, SECRET_KEY);
-    
+    // Authorization key in the req.headers object should contain the token
+    // authorize(req.body.authorization);// will have to be put in each route
+    // remove the authorize dependency
 
     res.send('ALLOWED ONLY IF TOKEN IS VALID');
 
