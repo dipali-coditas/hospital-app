@@ -1,6 +1,6 @@
 import { Router } from "express";
 import jwt from "jsonwebtoken";
-import { authorize } from "../../utility/authorize.js";
+import { authorize, permit } from "../../utility/authorize.js";
 
 const { sign, verify } = jwt;
 
@@ -10,10 +10,11 @@ import { CreateUserValidator, LoginUserValidator } from "./user.validations.js";
 const router = Router();
 
 // register user endpoint (CREATE a user)
-// name, email, password
-router.post("/", CreateUserValidator, (req, res, next) => {
+// name, email, password, roleId
+router.post("/", permit(['23456789']), CreateUserValidator, (req, res, next) => {
     try {
         const result = User.create(req.body);
+        // creating the response format
         res.send({ message: 'User Created', data: result });
     } catch(e) {
         res.status(500).send({ message: 'SOMETHING WENT WRONG' });
@@ -28,10 +29,13 @@ router.post("/login", LoginUserValidator, (req, res, next) => {
         const { email, password } = req.body;
         const userRecord = User.findOne(email, password);
 
+        // checking something
         if(!userRecord) {
+            // creating response format
             return res.status(404).send({ message: 'INVALID CREDENTIALS' });
         }
 
+        // generating something
         // 2. generate token
         const { SECRET_KEY } = process.env;
         const token = sign(userRecord, SECRET_KEY);
@@ -43,8 +47,14 @@ router.post("/login", LoginUserValidator, (req, res, next) => {
     }
 });
 
+// userRecord = { name: "Abcd", roleIds: ["123456789", "0987654321"], email: "a@a.com", password: "kjsfdjfd" }
+// sign(userRecoird, SECRET_KEY) -> "eyhgfkjeouiaasjlknlkajhdxoiuydoi.wo3hxlahdmlkasjlasd"
+// token -> "eyhgfkjeouiaasjlknlkajhdxoiuydoi.wo3hxlahdmlkasjlasd"
+// verify(token, SECRET_KEY) -> { name: "Abcd", roleId: "123456789", email: "a@a.com", password: "kjsfdjfd" }
+// payload -> { name: "Abcd", roleId: "123456789", email: "a@a.com", password: "kjsfdjfd" }
 
-router.get("/", (req, res, next) => {
+
+router.get("/", permit(['456789087654']), (req, res, next) => {
     try {
     // Authorization key in the req.headers object should contain the token
     // authorize(req.body.authorization);// will have to be put in each route
