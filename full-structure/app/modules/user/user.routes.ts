@@ -16,7 +16,8 @@ router.post("/", CreateUserValidator, (
         const result = userService.createUser(user);
         res.send(new ResponseHandler(result));
     } catch(e) {
-        res.status(500).send(new ResponseHandler(null, e));
+        // next(); // will not find the next middleware.
+        next(e); // tries to find the error handling middleware
     }
 })
 
