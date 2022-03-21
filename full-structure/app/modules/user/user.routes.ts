@@ -1,4 +1,4 @@
-import { Router, Request, Response, NextFunction } from "express";
+import { Router, Request, Response, NextFunction, Application } from "express";
 import { ResponseHandler } from "../../utility/response.types";
 import { CreateUserValidator } from "./user.validations";
 import userService from "./user.service";
